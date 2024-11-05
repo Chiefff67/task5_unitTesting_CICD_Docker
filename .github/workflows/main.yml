@@ -86,8 +86,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: SyarifMaulana67/task5_unittesting_cicd_docker-app:latest
+          
+      - name: Deploy to production
+        run: |
+          echo "Deployment step - add your deployment commands here"
