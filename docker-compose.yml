@@ -1,23 +1,16 @@
-version: '3.8'
-
 services:
   app:
     build: .
     ports:
       - "3000:3000"
-    environment:
-      NODE_ENV: "development"
-      MONGO_URI: "mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore"
-      JWT_SECRET: "development-secret-key-123"
-      BASE_URL: "http://localhost:3000"
-      PORT: "3000"
+    env_file:
+      - .env
     depends_on:
-      mongodb:
-        condition: service_healthy
+      - mongodb
+    restart: unless-stopped
     networks:
       - app-network
     platform: linux/amd64
-
   mongodb:
     image: mongo:5.0
     platform: linux/amd64
@@ -27,16 +20,8 @@ services:
       - mongodb_data:/data/db
     networks:
       - app-network
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
 networks:
   app-network:
     driver: bridge
-
 volumes:
   mongodb_data:

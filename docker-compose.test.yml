@@ -1,16 +1,10 @@
-version: '3.8'
-
 services:
   app:
     build: .
     ports:
       - "3000:3000"
-    environment:
-      NODE_ENV: "development"
-      MONGO_URI: "mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore"
-      JWT_SECRET: "development-secret-key-123"
-      BASE_URL: "http://localhost:3000"
-      PORT: "3000"
+    env_file:
+      - .env
     depends_on:
       mongodb:
         condition: service_healthy
