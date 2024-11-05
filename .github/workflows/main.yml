@@ -13,7 +13,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  # Convert repository name to lowercase
+  IMAGE_NAME: ${{ format('{0}/{1}', github.repository_owner, github.event.repository.name) | lower }}
 
 jobs:
   build-and-test:
