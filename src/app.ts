@@ -6,6 +6,8 @@ import swaggerDocs from "./config/swagger";
 import connectDB from "./config/database";
 import authRouter from "./routes/auth";
 import booksRouter from "./routes/books";
+// import "./config/environment";
+
 
 const app = express();
 
