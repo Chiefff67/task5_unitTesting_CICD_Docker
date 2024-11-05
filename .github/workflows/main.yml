@@ -1,3 +1,4 @@
+# .github/workflows/main.yml
 name: Docker CI/CD
 
 on:
@@ -74,14 +75,3 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Deploy to production
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PROD_HOST }}
-          username: ${{ secrets.PROD_USERNAME }}
-          key: ${{ secrets.PROD_SSH_KEY }}
-          script: |
-            cd /opt/app
-            docker-compose pull
-            docker-compose up -d
