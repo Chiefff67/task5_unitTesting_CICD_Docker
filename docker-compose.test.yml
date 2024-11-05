@@ -6,9 +6,12 @@ services:
     command: npm test
     environment:
       - NODE_ENV=test
-      - MONGODB_URI=${MONGODB_URI}
+      - MONGODB_URI=mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
+    networks:
+      - app-network
 
   mongodb:
     image: mongo:5.0
@@ -18,6 +21,12 @@ services:
       - mongodb_data:/data/db
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 networks:
   app-network:
