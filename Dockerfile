@@ -1,18 +1,18 @@
+# Gunakan node versi LTS
 FROM node:18-alpine
 
-WORKDIR /app
+# Buat direktori app
+WORKDIR /usr/src/app
 
-# Copy package files
+# Install dependensi terlebih dahulu untuk memanfaatkan Docker cache
 COPY package*.json ./
-
-# Install dependencies
 RUN npm ci
 
 # Copy source code
 COPY . .
 
-# Expose port
+# Expose port yang digunakan aplikasi
 EXPOSE 3000
 
-# Start command
+# Command untuk menjalankan aplikasi
 CMD ["npm", "start"]
