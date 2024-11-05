@@ -6,8 +6,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-      - MONGODB_URI=mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore
+      NODE_ENV: "development"
+      MONGO_URI: "mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore"
+      JWT_SECRET: "development-secret-key-123"
+      BASE_URL: "http://localhost:3000"
+      PORT: "3000"
     depends_on:
       mongodb:
         condition: service_healthy
