@@ -1,8 +1,8 @@
 # Use Node.js LTS version with Alpine
-FROM node:18-alpine
+FROM node:18
 
 # Set working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
