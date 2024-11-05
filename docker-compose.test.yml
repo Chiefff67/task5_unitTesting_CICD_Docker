@@ -6,15 +6,17 @@ services:
     command: npm test
     environment:
       - NODE_ENV=test
-      - MONGODB_URI=mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore
+      - MONGODB_URI=mongodb:mongodb+srv://bocahrkr:gEAGFOLCGtS5WffA@productzilla.2a2mu.mongodb.net/bookstore
     depends_on:
       mongodb:
         condition: service_healthy
     networks:
       - app-network
+    platform: linux/amd64  # Explicitly set platform
 
   mongodb:
     image: mongo:5.0
+    platform: linux/amd64  # Explicitly set platform
     ports:
       - "27017:27017"
     volumes:
@@ -22,7 +24,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       timeout: 5s
       retries: 5
