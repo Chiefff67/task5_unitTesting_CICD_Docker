@@ -1,18 +1,27 @@
-# docker-compose.test.yml
 version: '3.8'
 
 services:
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    command: npm test
     environment:
       - NODE_ENV=test
-      - JWT_SECRET=test-secret
-    command: npm run test
+      - MONGODB_URI=${MONGODB_URI}
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
     volumes:
-      - .:/app
-      - /app/node_modules
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
-  node_modules:
+  mongodb_data:
