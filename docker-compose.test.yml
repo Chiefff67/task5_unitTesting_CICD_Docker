@@ -2,26 +2,14 @@ version: '3.8'
 
 services:
   app:
-    build: .
-    command: npm test
+    build:
+      context: .
+      dockerfile: Dockerfile.test
     environment:
       - NODE_ENV=test
-      - MONGODB_URI=${MONGODB_URI}
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo:5.0
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
     networks:
-      - app-network
+      - test-network
 
 networks:
-  app-network:
+  test-network:
     driver: bridge
-
-volumes:
-  mongodb_data:
