@@ -1,18 +1,20 @@
-# Gunakan node versi LTS
+# Use Node.js LTS version with Alpine
 FROM node:18-alpine
 
-# Buat direktori app
+# Set working directory
 WORKDIR /usr/src/app
 
-# Install dependensi terlebih dahulu untuk memanfaatkan Docker cache
+# Copy package files
 COPY package*.json ./
+
+# Install dependencies
 RUN npm ci
 
-# Copy source code
+# Copy application source code
 COPY . .
 
-# Expose port yang digunakan aplikasi
+# Expose port 3000
 EXPOSE 3000
 
-# Command untuk menjalankan aplikasi
+# Command to run the application
 CMD ["npm", "start"]
